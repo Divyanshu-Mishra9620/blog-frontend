@@ -18,7 +18,8 @@ export default function Auth({ type }: { type: "signup" | "signin" }) {
         `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
         postInputs
       );
-      const jwt = res.data;
+      const jwt = res.data.jwt;
+      console.log("Signup response:", res.data);
       localStorage.setItem("token", jwt);
       navigate("/blogs");
     } catch (error) {}
@@ -61,7 +62,7 @@ export default function Auth({ type }: { type: "signup" | "signin" }) {
               onChange={(e) => {
                 setPostInputs((c) => ({
                   ...c,
-                  name: e.target.value,
+                  email: e.target.value,
                 }));
               }}
             />
@@ -72,7 +73,7 @@ export default function Auth({ type }: { type: "signup" | "signin" }) {
               onChange={(e) => {
                 setPostInputs((c) => ({
                   ...c,
-                  name: e.target.value,
+                  password: e.target.value,
                 }));
               }}
             />
